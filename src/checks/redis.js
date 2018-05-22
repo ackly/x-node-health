@@ -41,7 +41,7 @@ module.exports = (opts = {}) => async () => {
     const info = util.promisify(redis.info).bind(redis);
 
     try {
-        const inf = parseInfo(await info());
+        const inf = parseInfo((await info()).toString());
 
         result.info = {
             version: inf.Server.redis_version,
