@@ -1,6 +1,6 @@
 {
   "name": "x-node-health",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Health checks for nodejs application with integration with popular libraries",
   "main": "index.js",
   "scripts": {

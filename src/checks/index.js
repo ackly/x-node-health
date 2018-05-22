@@ -30,8 +30,7 @@ const handle = async (options) => {
             check = checks[check.type](check);
         }
 
-        const checkResult = new CheckResult();
-        await check(checkResult);
+        const checkResult = CheckResult.from(await check());
 
         if (checkResult.status === 'warning' && res.status === 'ok') {
             res.status = 'warning';

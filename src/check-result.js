@@ -6,6 +6,32 @@ class CheckResult {
         this.inf = {};
     }
 
+    static from(obj = {}) {
+        const res = new CheckResult();
+
+        res.errors = obj.errors || [];
+        res.warnings = obj.warnings || [];
+        res.inf = obj.info || {};
+
+        if (obj.status) {
+            if (['ok', 'warning', 'error'].indexOf(obj.status) === -1) {
+                throw new Error('Service status MUST be one of [ok|warning|error]');
+            }
+
+            res.status = obj.status;
+        } else {
+            if (res.warnings.length && res.status === 'ok') {
+                res.status = 'warning';
+            }
+
+            if (res.errors.length) {
+                res.status = 'error';
+            }
+        }
+
+        return res;
+    }
+
     error(str) {
         this.status = 'error';
         this.errors.push(str);

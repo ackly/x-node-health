@@ -37,7 +37,9 @@ const getVersion = async (sequelize) => {
  *
  * @returns {function(*)}
  */
-module.exports = (opts = {}) => async (result) => {
+module.exports = (opts = {}) => async () => {
+    const result = {};
+
     const {connection: sequelize} = opts;
 
     try {
@@ -49,8 +51,10 @@ module.exports = (opts = {}) => async (result) => {
 
         assert(res[0].test === 1, 'Test query returned incorrect value');
 
-        result.info('version', await getVersion(sequelize));
+        result.info = {'version': await getVersion(sequelize)};
     } catch (e) {
-        result.error(e.message);
+        result.errors = [e.message];
     }
+
+    return result;
 };

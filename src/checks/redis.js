@@ -34,14 +34,16 @@ const parseInfo = (src) => {
     return res;
 };
 
-module.exports = (opts = {}) => async (result) => {
+module.exports = (opts = {}) => async () => {
+    const result = {};
+
     const {connection: redis, thresholds = {}} = opts;
     const info = util.promisify(redis.info).bind(redis);
 
     try {
         const inf = parseInfo(await info());
 
-        result.info({
+        result.info = {
             version: inf.Server.redis_version,
             mode: inf.Server.redis_mode,
             uptime: inf.Server.uptime_in_seconds,
@@ -49,10 +51,12 @@ module.exports = (opts = {}) => async (result) => {
             used_memory: inf.Memory.used_memory_human,
             total_memory: inf.Memory.total_system_memory_human,
             evictions: inf.Stats.evicted_keys
-        });
+        };
 
         // todo: add thresholds check
     } catch (e) {
-        result.error(e.message);
+        result.errors = [e.message];
     }
+
+    return result;
 };
