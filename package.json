@@ -1,0 +1,26 @@
+{
+  "name": "x-node-health",
+  "version": "0.0.1",
+  "description": "Health checks for nodejs application with integration with popular libraries",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "healthcheck",
+    "health",
+    "check",
+    "koa2",
+    "express"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ackly/x-node-health.git"
+  },
+  "author": {
+    "name": "Andrey Stroganov",
+    "email": "graffavor@gmail.com",
+    "url": "https://github.com/ackly"
+  },
+  "license": "MIT"
+}
